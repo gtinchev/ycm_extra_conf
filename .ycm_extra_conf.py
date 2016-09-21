@@ -3,6 +3,7 @@
 ##########################################################################
 # YouCompleteMe configuration for ROS                                    #
 # Author: Gaël Ecorchard (2015)                                          #
+# Modified: Georgi Tinchev (2016)                                        #
 #                                                                        #
 # The file requires the definition of the $ROS_WORKSPACE variable in     #
 # your shell.                                                            #
