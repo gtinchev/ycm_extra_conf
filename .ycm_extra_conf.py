@@ -17,6 +17,7 @@
 
 import os
 import ycm_core
+import fnmatch
 # import subprocess
 
 # def getEnvVars():
@@ -29,20 +30,27 @@ import ycm_core
 #     return variables
 
 
-def GetLCMIncludePaths():
+def GetRPGIncludePaths():
     """Return a list of potential include directories
-    The directories are looked for in $DRC_BASE.
+    The directories are looked for in $DRC_BASE and $DRC_BASE/software/externals.
     """
     # envVars = getEnvVars()
     # print envVars
 
     includes = []
     includes.append(os.environ.get('HOME') + '/rpg-navigation/software/build/include')
+    externals = os.environ.get('HOME') + '/rpg-navigation/software/externals'
+
+    for dirPath in os.walk(externals):
+        if fnmatch.fnmatch(dirPath[0], 'include'): # if the path has 'include' - append it
+            includes.append(dirPath[0])
+
+
 
     return includes
 
-def GetLCMIncludeFlags():
-    includes = GetLCMIncludePaths()
+def GetRPGIncludeFlags():
+    includes = GetRPGIncludePaths()
     flags = []
     for include in includes:
         flags.append('-isystem')
@@ -128,7 +136,7 @@ default_flags = [
     #'-DMAVLINK_DIALECT=ardupilotmega',
 ]
 
-flags = default_flags + GetRosIncludeFlags() + GetLCMIncludeFlags()
+flags = default_flags + GetRosIncludeFlags() + GetRPGIncludeFlags()
 
 
 def GetCompilationDatabaseFolder(filename):
